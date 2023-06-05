@@ -1,12 +1,12 @@
-from typing import Any
 import pygame
-from settings import *
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
         super().__init__(groups)
-        self.image = pygame.image.load("./graphics/test/player.png").convert_alpha()
-        self.rect = self.image.get_rect(topleft = pos)
+        self.image = pygame.image.load(
+            "./graphics/test/player.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(0, -26)
 
         self.direction = pygame.math.Vector2()
@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
-    def collision(self,direction):
+    def collision(self, direction):
         if direction == 'horizontal':
             for sprite in self.obstacle_sprites:
                 if sprite.hitbox.colliderect(self.hitbox):
@@ -45,9 +45,8 @@ class Player(pygame.sprite.Sprite):
                         self.hitbox.top = sprite.hitbox.bottom
                     else:
                         self.hitbox.bottom = sprite.hitbox.top
-                    
 
-    def move(self,speed):
+    def move(self, speed):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
