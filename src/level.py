@@ -2,7 +2,6 @@ import pygame
 from settings import WORLD_MAP, TILESIZE
 from tile import Tile
 from player import Player
-from debug import debug
 
 
 class Level:
@@ -17,14 +16,14 @@ class Level:
     def create_map(self):
         for row_index, row in enumerate(WORLD_MAP):
             for col_index, col in enumerate(row):
-                x = col_index * TILESIZE
-                y = row_index * TILESIZE
+                x_axis = col_index * TILESIZE
+                y_axis = row_index * TILESIZE
                 if col == 'x':
-                    Tile((x, y), [self.visible_sprites,
+                    Tile((x_axis, y_axis), [self.visible_sprites,
                          self.obstacles_sprites])
                 if col == 'p':
                     self.player = Player(
-                        (y, x), [
+                        (x_axis, y_axis), [
                             self.visible_sprites], self.obstacles_sprites)
 
     def run(self):
@@ -50,3 +49,12 @@ class YSortCameraGroup(pygame.sprite.Group):
                              key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+
+
+def debug(info, x_axis=10 ,  y_axis=10):
+    font = pygame.font.Font(None, 30)
+    display_surface = pygame.display.get_surface()
+    debug_surf = font.render(str(info), True, 'White')
+    debug_rect = debug_surf.get_rect(topleft=(x_axis, y_axis))
+    pygame.draw.rect(display_surface, 'Black', debug_rect)
+    display_surface.blit(debug_surf, debug_rect)

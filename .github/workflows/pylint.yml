@@ -26,4 +26,4 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          python -m pylint $(git ls-files '*.py') --extension-pkg-whitelist=pygame --disable=C0111
+          python -m pylint $(git ls-files '*.py') --extension-pkg-whitelist=pygame --disable=C0111 --disable=too-few-public-methods
